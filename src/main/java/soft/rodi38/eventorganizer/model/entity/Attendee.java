@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -24,7 +25,6 @@ public class Attendee {
     private String name;
     private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "event_id")
-    private Event event;
+    @ManyToMany(mappedBy = "attendees")
+    private Set<Event> events;
 }

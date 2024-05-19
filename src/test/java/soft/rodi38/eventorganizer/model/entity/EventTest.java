@@ -18,7 +18,7 @@ public class EventTest {
         UUID attendeeId = UUID.randomUUID();
         UUID organizerId = UUID.randomUUID();
         Event event = new Event(eventId, "Evento de tecnologia","Fortaleza", "2024-08-20", new HashSet<>(), null );
-        Attendee attendee = new Attendee(attendeeId, "Rodrigo","rodrigo@email.com", event);
+        Attendee attendee = new Attendee(attendeeId, "Rodrigo","rodrigo@email.com", Set.of(event));
         Organizer organizer = new Organizer(organizerId,"","", Set.of(event) );
 
         event.getAttendees().add(attendee);

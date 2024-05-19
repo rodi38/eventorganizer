@@ -23,7 +23,12 @@ public class Event {
     private String location;
     private String date;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(
+            name = "event_attendees",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "attendee_id")
+    )
     private Set<Attendee> attendees;
 
 
