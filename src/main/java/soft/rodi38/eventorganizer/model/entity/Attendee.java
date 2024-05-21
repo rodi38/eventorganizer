@@ -26,6 +26,7 @@ public class Attendee {
     private String name;
     private String email;
 
+
     @ManyToMany(mappedBy = "attendees")
     private List<Event> events;
 }
