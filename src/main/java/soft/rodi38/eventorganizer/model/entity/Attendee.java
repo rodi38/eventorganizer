@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,5 +27,5 @@ public class Attendee {
     private String email;
 
     @ManyToMany(mappedBy = "attendees")
-    private Set<Event> events;
+    private List<Event> events;
 }

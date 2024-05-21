@@ -2,10 +2,7 @@ package soft.rodi38.eventorganizer.model.entity;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,9 +14,9 @@ public class EventTest {
         UUID eventId = UUID.randomUUID();
         UUID attendeeId = UUID.randomUUID();
         UUID organizerId = UUID.randomUUID();
-        Event event = new Event(eventId, "Evento de tecnologia","Fortaleza", "2024-08-20", new HashSet<>(), null );
-        Attendee attendee = new Attendee(attendeeId, "Rodrigo","rodrigo@email.com", Set.of(event));
-        Organizer organizer = new Organizer(organizerId,"","", Set.of(event) );
+        Event event = new Event(eventId, "Evento de tecnologia","Fortaleza", "2024-08-20", new ArrayList<>(), null );
+        Attendee attendee = new Attendee(attendeeId, "Rodrigo","rodrigo@email.com", List.of(event));
+        Organizer organizer = new Organizer(organizerId,"","", List.of(event) );
 
         event.getAttendees().add(attendee);
         event.setOrganizer(organizer);
