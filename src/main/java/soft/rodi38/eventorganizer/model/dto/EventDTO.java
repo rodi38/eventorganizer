@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 public class EventDTO {
 
-    private UUID id;
+    private String id;
     private String name;
     private String location;
     private String date;
