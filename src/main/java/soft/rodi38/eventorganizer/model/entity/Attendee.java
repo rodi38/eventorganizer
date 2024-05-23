@@ -1,10 +1,7 @@
 package soft.rodi38.eventorganizer.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
@@ -16,6 +13,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 public class Attendee {
 
     @Id
@@ -27,6 +25,6 @@ public class Attendee {
     private String email;
 
 
-    @ManyToMany(mappedBy = "attendees")
+    @ManyToMany( mappedBy = "attendees", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Event> events;
 }

@@ -2,6 +2,7 @@ spring:
   jpa:
     database: POSTGRESQL
     show-sql: true
+    open-in-view: true
     hibernate:
       ddl-auto: update
   datasource:
@@ -11,4 +12,3 @@ spring:
     driver-class-name: org.postgresql.Driver
   application:
     name: eventorganizer
-

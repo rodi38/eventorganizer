@@ -1,10 +1,7 @@
 package soft.rodi38.eventorganizer.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
@@ -15,6 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 public class Organizer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,7 +22,7 @@ public class Organizer {
     private String name;
     private String email;
 
-    @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "organizer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Event> events;
 
 }
