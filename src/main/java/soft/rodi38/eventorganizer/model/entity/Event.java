@@ -11,8 +11,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
 @EqualsAndHashCode
+@Entity
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

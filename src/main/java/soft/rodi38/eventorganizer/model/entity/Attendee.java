@@ -12,8 +12,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
 @EqualsAndHashCode
+@Entity
 public class Attendee {
 
     @Id

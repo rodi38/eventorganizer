@@ -11,8 +11,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
 @EqualsAndHashCode
+@Entity
 public class Organizer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
