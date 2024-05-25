@@ -6,13 +6,13 @@ import org.mapstruct.factory.Mappers;
 import soft.rodi38.eventorganizer.model.dto.AttendeeRecord;
 import soft.rodi38.eventorganizer.model.dto.EventRecord;
 import soft.rodi38.eventorganizer.model.dto.OrganizerRecord;
+import soft.rodi38.eventorganizer.model.dto.request.CreateEventRequest;
 import soft.rodi38.eventorganizer.model.entity.Attendee;
 import soft.rodi38.eventorganizer.model.entity.Event;
 import soft.rodi38.eventorganizer.model.entity.Organizer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface EventMapper {
@@ -23,6 +23,12 @@ public interface EventMapper {
     @Mapping(source = "attendees", target = "attendees")
     @Mapping(source = "organizer", target = "organizerRecord")
     EventRecord eventToEventRecord(Event event);
+
+    Event eventRecordToEvent(EventRecord eventRecord);
+
+    @Mapping(target = "organizer.id", source = "organizerId")
+    Event createEventReqToEvent(CreateEventRequest createEventRequest);
+
 
     List<EventRecord> eventsToEventRecords(List<Event> events);
 

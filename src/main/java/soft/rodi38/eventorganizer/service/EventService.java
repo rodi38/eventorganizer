@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import soft.rodi38.eventorganizer.model.dto.EventRecord;
+import soft.rodi38.eventorganizer.model.dto.request.CreateEventRequest;
 import soft.rodi38.eventorganizer.model.entity.Event;
 import soft.rodi38.eventorganizer.model.mapper.EventMapper;
 import soft.rodi38.eventorganizer.repository.EventRepository;
@@ -20,6 +21,12 @@ public class EventService {
 
     public List<EventRecord> findAllEvents() {
         return EventMapper.INSTANCE.eventsToEventRecords(eventRepository.findAll());
+    }
+
+    public EventRecord create(CreateEventRequest request) {
+        Event event = eventRepository.save(EventMapper.INSTANCE.createEventReqToEvent(request));
+        Event response = eventRepository.save(event);
+        return EventMapper.INSTANCE.eventToEventRecord(response);
     }
 
 
