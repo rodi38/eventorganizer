@@ -82,7 +82,7 @@ public class EventControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(eventRecord.name()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location").value(eventRecord.location()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(eventRecord.date()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.organizerRecord.id").value(createEventRequest.organizerId().toString()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.organizer.id").value(createEventRequest.organizerId().toString()));
     }
 
 
