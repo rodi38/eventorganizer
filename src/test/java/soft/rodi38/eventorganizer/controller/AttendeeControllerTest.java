@@ -27,14 +27,13 @@ public class AttendeeControllerTest {
     private AttendeeService attendeeService;
 
 
-
-
     @Test
+    @WithMockUser
     void shouldFindAllAttendees() throws Exception {
-//        Mockito.when()
         mockMvc.perform(MockMvcRequestBuilders.get("/attendees")
                 .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+
     }
 
 }
