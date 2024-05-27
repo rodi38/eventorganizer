@@ -21,7 +21,7 @@ public interface EventMapper {
 
 
     @Mapping(source = "attendees", target = "attendees")
-    @Mapping(source = "organizer", target = "organizerRecord")
+    @Mapping(source = "organizer", target = "organizer")
     EventRecord eventToEventRecord(Event event);
 
     Event eventRecordToEvent(EventRecord eventRecord);
