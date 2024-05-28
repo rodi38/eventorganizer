@@ -26,6 +26,10 @@ import soft.rodi38.eventorganizer.model.mapper.EventMapper;
 import soft.rodi38.eventorganizer.repository.EventRepository;
 import soft.rodi38.eventorganizer.service.EventService;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.UUID;
 
 @WebMvcTest(EventController.class)
@@ -48,15 +52,26 @@ public class EventControllerTest {
     @BeforeEach
     void setUp() {
         UUID organizerId = UUID.randomUUID();
+
+        OffsetDateTime startDate = OffsetDateTime.of(
+                LocalDateTime.of(2024,05, 1, 2, 02,4,5 ),
+                ZoneOffset.of("-3"));
+
+        OffsetDateTime endDate = OffsetDateTime.of(
+                LocalDateTime.of(2024,05, 5, 2, 02,4,5 ),
+                ZoneOffset.of("-3"));
+
         event = new Event();
         event.setId(UUID.randomUUID());
         event.setName("Evento louco!!!");
         event.setLocation("Fortaleza");
-        event.setDate("29/05/2024");
-        event.setOrganizer(new Organizer(organizerId, "Rodrigo", "rodrigo@email.com", null ));
+        event.setCreatedAt(Instant.now());
+        event.setStartDate(OffsetDateTime.now().plusDays(5).withNano(0));
+        event.setEndDate(OffsetDateTime.now().plusDays(10).withNano(0));
+        event.setOrganizer(new Organizer(organizerId, "Rodrigo", "rodrigo@email.com",Instant.now(), null ));
 
         eventRecord = EventMapper.INSTANCE.eventToEventRecord(event);
-        createEventRequest = new CreateEventRequest(event.getName(), event.getLocation(), event.getDate(), organizerId);
+        createEventRequest = new CreateEventRequest(event.getName(), event.getLocation(), startDate, endDate, organizerId);
     }
 
     @Test
@@ -81,7 +96,8 @@ public class EventControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(eventRecord.id().toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(eventRecord.name()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location").value(eventRecord.location()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(eventRecord.date()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.startDate").value(eventRecord.startDate().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.endDate").value(eventRecord.endDate().toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.organizer.id").value(createEventRequest.organizerId().toString()));
     }
 

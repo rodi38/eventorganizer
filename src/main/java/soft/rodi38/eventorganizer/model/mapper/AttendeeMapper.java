@@ -16,8 +16,8 @@ import java.util.List;
 public interface AttendeeMapper {
 
     AttendeeMapper INSTANCE = Mappers.getMapper(AttendeeMapper.class);
-
     AttendeeRecord attendeeToAttendeeRecord(Attendee attendee);
+
 
     Attendee createAttendeeRequestToAttendee(CreateAttendeeRequest createAttendeeRequest);
 

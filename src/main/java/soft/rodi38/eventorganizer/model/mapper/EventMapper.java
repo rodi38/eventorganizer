@@ -31,7 +31,6 @@ public interface EventMapper {
 
 
     List<EventRecord> eventsToEventRecords(List<Event> events);
-
     @Mapping(target = "events", ignore = true) // Ignore mapping events to avoid circular reference
     AttendeeRecord attendeeToAttendeeRecord(Attendee attendee);
 

@@ -7,6 +7,8 @@ import soft.rodi38.eventorganizer.model.dto.AttendeeRecord;
 import soft.rodi38.eventorganizer.model.mapper.AttendeeMapper;
 import soft.rodi38.eventorganizer.repository.AttendeeRepository;
 
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
