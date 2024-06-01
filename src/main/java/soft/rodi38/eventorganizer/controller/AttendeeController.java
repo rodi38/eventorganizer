@@ -10,6 +10,7 @@ import soft.rodi38.eventorganizer.model.dto.request.CreateAttendeeRequest;
 import soft.rodi38.eventorganizer.service.AttendeeService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -30,5 +31,12 @@ public class AttendeeController {
     public ResponseEntity<AttendeeRecord> create(@RequestBody CreateAttendeeRequest request) {
         AttendeeRecord response = attendeeService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AttendeeRecord> findById(@RequestBody UUID id) {
+        AttendeeRecord response = attendeeService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

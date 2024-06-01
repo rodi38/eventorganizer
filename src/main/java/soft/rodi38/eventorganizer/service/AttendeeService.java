@@ -10,6 +10,7 @@ import soft.rodi38.eventorganizer.model.mapper.AttendeeMapper;
 import soft.rodi38.eventorganizer.repository.AttendeeRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -25,5 +26,9 @@ public class AttendeeService {
         Attendee attendee = AttendeeMapper.INSTANCE.INSTANCE.createAttendeeRequestToAttendee(createAttendeeRequest);
         attendeeRepository.save(attendee);
         return  AttendeeMapper.INSTANCE.attendeeToAttendeeRecord(attendee);
+    }
+
+    public AttendeeRecord findById(UUID id) {
+        return AttendeeMapper.INSTANCE.attendeeToAttendeeRecord(attendeeRepository.findById(id).get());
     }
 }

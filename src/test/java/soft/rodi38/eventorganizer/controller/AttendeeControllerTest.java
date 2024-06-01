@@ -56,7 +56,6 @@ public class AttendeeControllerTest {
 
     }
 
-
     @Test
     @WithMockUser
     void shouldFindAllAttendees() throws Exception {
@@ -79,6 +78,20 @@ public class AttendeeControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(attendee.getName()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(attendee.getEmail()));
 
+    }
+
+    @Test
+    @WithMockUser
+    void shouldFindById() throws Exception {
+        Mockito.when(attendeeService.findById(Mockito.any(UUID.class))).thenReturn(attendeeRecord);
+        mockMvc.perform(MockMvcRequestBuilders.get("/attendees/{id}", attendee.getId())
+               .with(SecurityMockMvcRequestPostProcessors.csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(UUID.randomUUID())))
+               .andExpect(MockMvcResultMatchers.status().isOk())
+               .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(attendee.getId().toString()))
+               .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(attendee.getName()))
+               .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(attendee.getEmail()));
     }
 
 
