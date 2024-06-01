@@ -15,6 +15,8 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import soft.rodi38.eventorganizer.exception.event.EventNotFoundException;
+import soft.rodi38.eventorganizer.exception.organizer.OrganizerNotFoundException;
 import soft.rodi38.eventorganizer.model.dto.OrganizerRecord;
 import soft.rodi38.eventorganizer.model.dto.request.CreateEventRequest;
 import soft.rodi38.eventorganizer.model.dto.request.CreateOrganizerRequest;
@@ -97,4 +99,16 @@ public class OrganizerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(response.email()));
     }
 
+
+
+    @Test
+    @WithMockUser
+    void shouldFindByIdReturnNotFoundWhenEventNotExists() throws Exception {
+        Mockito.when(organizerService.findById(Mockito.any(UUID.class)))
+                .thenThrow(new OrganizerNotFoundException("Organizer not found"));
+        mockMvc.perform(MockMvcRequestBuilders.get("/events/{id}", UUID.randomUUID())
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 }

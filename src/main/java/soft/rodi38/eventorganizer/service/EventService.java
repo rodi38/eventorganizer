@@ -3,6 +3,7 @@ package soft.rodi38.eventorganizer.service;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import soft.rodi38.eventorganizer.exception.event.EventNotFoundException;
 import soft.rodi38.eventorganizer.model.dto.EventRecord;
 import soft.rodi38.eventorganizer.model.dto.request.CreateEventRequest;
 import soft.rodi38.eventorganizer.model.entity.Event;
@@ -32,7 +33,7 @@ public class EventService {
 
     public EventRecord findById(UUID id) {
         return EventMapper.INSTANCE.eventToEventRecord(eventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event not found")));
+                .orElseThrow(() -> new EventNotFoundException("Event not found")));
     }
 
 

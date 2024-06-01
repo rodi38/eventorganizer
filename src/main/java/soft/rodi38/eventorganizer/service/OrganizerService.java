@@ -3,6 +3,7 @@ package soft.rodi38.eventorganizer.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import soft.rodi38.eventorganizer.exception.organizer.OrganizerNotFoundException;
 import soft.rodi38.eventorganizer.model.dto.OrganizerRecord;
 import soft.rodi38.eventorganizer.model.dto.request.CreateOrganizerRequest;
 import soft.rodi38.eventorganizer.model.entity.Organizer;
@@ -31,6 +32,6 @@ public class OrganizerService {
 
     public OrganizerRecord findById(UUID id) {
         return OrganizerMapper.INSTANCE.organizerToOrganizerRecord(organizerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Organizer not found")));
+                .orElseThrow(() -> new OrganizerNotFoundException("Organizer not found")));
     }
 }
