@@ -36,5 +36,17 @@ public class EventService {
                 .orElseThrow(() -> new EventNotFoundException("Event not found")));
     }
 
+    public EventRecord update(EventRecord request) {
+        Event event = eventRepository.findById(request.id())
+                .orElseThrow(() -> new EventNotFoundException("Event not found"));
+
+        event.setName(request.name());
+        event.setLocation(request.location());
+        event.setStartDate(request.startDate());
+        event.setEndDate(request.endDate());
+
+        return EventMapper.INSTANCE.eventToEventRecord(event);
+    }
+
 
 }

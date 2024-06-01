@@ -36,4 +36,10 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @PutMapping()
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody EventRecord request) {
+        eventService.update(request);
+    }
+
 }

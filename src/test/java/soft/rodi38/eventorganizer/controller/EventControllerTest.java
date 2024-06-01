@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import soft.rodi38.eventorganizer.exception.attendee.AttendeeNotFoundException;
 import soft.rodi38.eventorganizer.exception.event.EventNotFoundException;
+import soft.rodi38.eventorganizer.model.dto.AttendeeRecord;
 import soft.rodi38.eventorganizer.model.dto.EventRecord;
 import soft.rodi38.eventorganizer.model.dto.request.CreateEventRequest;
 import soft.rodi38.eventorganizer.model.entity.Event;
@@ -90,8 +91,7 @@ public class EventControllerTest {
 
 
         mockMvc.perform(MockMvcRequestBuilders.post("/events")
-//                        .with(SecurityMockMvcRequestPostProcessors.httpBasic("user", "default"))
-                        .with(SecurityMockMvcRequestPostProcessors.csrf()) // Add CSRF token
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createEventRequest)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -129,6 +129,35 @@ public class EventControllerTest {
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    @WithMockUser
+    void shouldUpdateevent() throws Exception {
+        Mockito.when(eventService.update(Mockito.any(EventRecord.class))).thenReturn(eventRecord);
+        Mockito.when(eventService.findById(event.getId())).thenReturn(eventRecord);
+
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/events")
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(eventRecord)))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/events/{id}", event.getId())
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(event.getId().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(event.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.location").value(event.getLocation()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.startDate").value(event.getStartDate().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.endDate").value(event.getEndDate().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.organizer.id").value(createEventRequest.organizerId().toString()));
+
+
+
     }
 
 }

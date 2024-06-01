@@ -22,13 +22,13 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // Desabilitando CSRF para simplificação
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/**", "/events/**", "/events",
                                 "/organizers/**", "organizers", "/attendees/**", "/attendees").permitAll()
                         .anyRequest().authenticated()
                 )
-                .httpBasic(httpBasic -> {}); // Configura HTTP Basic Authentication
+                .httpBasic(httpBasic -> {});
 
         return http.build();
     }
