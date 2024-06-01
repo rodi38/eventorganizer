@@ -9,6 +9,7 @@ import soft.rodi38.eventorganizer.model.dto.request.CreateEventRequest;
 import soft.rodi38.eventorganizer.service.EventService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/events")
@@ -27,6 +28,12 @@ public class EventController {
     public ResponseEntity<EventRecord> create(@RequestBody CreateEventRequest eventRecord) {
         EventRecord response = eventService.create(eventRecord);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EventRecord> findById(@PathVariable UUID id) {
+        EventRecord response = eventService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }

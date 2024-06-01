@@ -3,6 +3,7 @@ package soft.rodi38.eventorganizer.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import soft.rodi38.eventorganizer.exception.attendee.AttendeeNotFoundException;
 import soft.rodi38.eventorganizer.model.dto.AttendeeRecord;
 import soft.rodi38.eventorganizer.model.dto.request.CreateAttendeeRequest;
 import soft.rodi38.eventorganizer.model.entity.Attendee;
@@ -29,6 +30,7 @@ public class AttendeeService {
     }
 
     public AttendeeRecord findById(UUID id) {
-        return AttendeeMapper.INSTANCE.attendeeToAttendeeRecord(attendeeRepository.findById(id).get());
+        return AttendeeMapper.INSTANCE.attendeeToAttendeeRecord(attendeeRepository.findById(id)
+                .orElseThrow(() -> new AttendeeNotFoundException("Attendee not found")));
     }
 }

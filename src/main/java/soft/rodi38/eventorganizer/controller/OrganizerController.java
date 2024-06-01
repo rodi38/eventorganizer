@@ -10,6 +10,7 @@ import soft.rodi38.eventorganizer.model.dto.request.CreateOrganizerRequest;
 import soft.rodi38.eventorganizer.service.OrganizerService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -31,5 +32,10 @@ public class OrganizerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<OrganizerRecord> findById(@PathVariable UUID id) {
+        OrganizerRecord response = organizerService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 
 }

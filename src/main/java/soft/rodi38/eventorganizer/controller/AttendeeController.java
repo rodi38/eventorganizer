@@ -35,7 +35,7 @@ public class AttendeeController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<AttendeeRecord> findById(@RequestBody UUID id) {
+    public ResponseEntity<AttendeeRecord> findById(@PathVariable UUID id) {
         AttendeeRecord response = attendeeService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

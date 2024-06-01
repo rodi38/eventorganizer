@@ -11,6 +11,7 @@ import soft.rodi38.eventorganizer.repository.EventRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Service
@@ -27,6 +28,11 @@ public class EventService {
         Event event = eventRepository.save(EventMapper.INSTANCE.createEventReqToEvent(request));
         Event response = eventRepository.save(event);
         return EventMapper.INSTANCE.eventToEventRecord(response);
+    }
+
+    public EventRecord findById(UUID id) {
+        return EventMapper.INSTANCE.eventToEventRecord(eventRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Event not found")));
     }
 
 

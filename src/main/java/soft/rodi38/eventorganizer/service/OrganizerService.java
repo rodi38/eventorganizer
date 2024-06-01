@@ -10,6 +10,7 @@ import soft.rodi38.eventorganizer.model.mapper.OrganizerMapper;
 import soft.rodi38.eventorganizer.repository.OrganizerRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -26,5 +27,10 @@ public class OrganizerService {
         organizerRepository.save(organizer);
 
         return OrganizerMapper.INSTANCE.organizerToOrganizerRecord(organizer);
+    }
+
+    public OrganizerRecord findById(UUID id) {
+        return OrganizerMapper.INSTANCE.organizerToOrganizerRecord(organizerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Organizer not found")));
     }
 }

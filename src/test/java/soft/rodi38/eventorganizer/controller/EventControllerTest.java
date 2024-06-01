@@ -101,5 +101,21 @@ public class EventControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.organizer.id").value(createEventRequest.organizerId().toString()));
     }
 
+    @Test
+    @WithMockUser
+    void shouldFindById() throws Exception {
+        Mockito.when(eventService.findById(Mockito.any(UUID.class))).thenReturn(eventRecord);
+        mockMvc.perform(MockMvcRequestBuilders.get("/events/{id}", event.getId())
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(UUID.randomUUID())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(eventRecord.id().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(eventRecord.name()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.location").value(eventRecord.location()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.startDate").value(eventRecord.startDate().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.endDate").value(eventRecord.endDate().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.organizer.id").value(createEventRequest.organizerId().toString()));
+    }
+
 
 }

@@ -83,4 +83,18 @@ public class OrganizerControllerTest {
     }
 
 
+    @Test
+    @WithMockUser
+    void shouldFindById() throws Exception {
+        Mockito.when(organizerService.findById(Mockito.any(UUID.class))).thenReturn(response);
+        mockMvc.perform(MockMvcRequestBuilders.get("/organizers/{id}", organizer.getId())
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(UUID.randomUUID())))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(response.id().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(response.name()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(response.email()));
+    }
+
 }
