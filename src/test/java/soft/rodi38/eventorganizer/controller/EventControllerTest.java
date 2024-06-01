@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import soft.rodi38.eventorganizer.exception.attendee.AttendeeNotFoundException;
+import soft.rodi38.eventorganizer.exception.event.EventNotFoundException;
 import soft.rodi38.eventorganizer.model.dto.EventRecord;
 import soft.rodi38.eventorganizer.model.dto.request.CreateEventRequest;
 import soft.rodi38.eventorganizer.model.entity.Event;
@@ -117,5 +119,16 @@ public class EventControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.organizer.id").value(createEventRequest.organizerId().toString()));
     }
 
+
+    @Test
+    @WithMockUser
+    void shouldFindByIdReturnNotFoundWhenEventNotExists() throws Exception {
+        Mockito.when(eventService.findById(Mockito.any(UUID.class)))
+                .thenThrow(new EventNotFoundException("Event not found"));
+        mockMvc.perform(MockMvcRequestBuilders.get("/events/{id}", UUID.randomUUID())
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 
 }
