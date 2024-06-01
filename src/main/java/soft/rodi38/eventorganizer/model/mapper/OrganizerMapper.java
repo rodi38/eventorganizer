@@ -16,7 +16,6 @@ import java.util.List;
 public interface OrganizerMapper {
 
     OrganizerMapper INSTANCE = Mappers.getMapper(OrganizerMapper.class);
-
     OrganizerRecord organizerToOrganizerRecord(Organizer organizer);
 
     Organizer createOrganizerRequestToOrganizer(CreateOrganizerRequest createOrganizerRequest);

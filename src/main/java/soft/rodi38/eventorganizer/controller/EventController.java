@@ -20,7 +20,7 @@ public class EventController {
     @GetMapping()
     public ResponseEntity<List<EventRecord>> findAll() {
         List<EventRecord> events = eventService.findAllEvents();
-        return ResponseEntity.ok(events);
+        return ResponseEntity.status(HttpStatus.OK).body(events);
     }
 
     @PostMapping()
