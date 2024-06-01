@@ -39,4 +39,15 @@ public class AttendeeController {
         AttendeeRecord response = attendeeService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @PutMapping()
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody AttendeeRecord request) {
+        attendeeService.update(request);
+    }
+
+
+
+
+
 }

@@ -86,8 +86,8 @@ public class AttendeeControllerTest {
         Mockito.when(attendeeService.findById(Mockito.any(UUID.class))).thenReturn(attendeeRecord);
         mockMvc.perform(MockMvcRequestBuilders.get("/attendees/{id}", attendee.getId())
                .with(SecurityMockMvcRequestPostProcessors.csrf())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(UUID.randomUUID())))
+                .contentType(MediaType.APPLICATION_JSON))
+//                .content(objectMapper.writeValueAsString(UUID.randomUUID())))
                .andExpect(MockMvcResultMatchers.status().isOk())
                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(attendee.getId().toString()))
                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(attendee.getName()))
@@ -103,6 +103,31 @@ public class AttendeeControllerTest {
                .with(SecurityMockMvcRequestPostProcessors.csrf())
                .contentType(MediaType.APPLICATION_JSON))
                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    @WithMockUser
+    void shouldUpdateAttendee() throws Exception {
+        Mockito.when(attendeeService.update(Mockito.any(AttendeeRecord.class))).thenReturn(attendeeRecord);
+        Mockito.when(attendeeService.findById(attendee.getId())).thenReturn(attendeeRecord);
+
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/attendees")
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(attendeeRecord)))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/attendees/{id}", attendee.getId())
+                .with(SecurityMockMvcRequestPostProcessors.csrf())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(attendee.getId().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(attendee.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(attendee.getEmail()));
+
+
     }
 
 

@@ -23,8 +23,8 @@ public class AttendeeService {
         return AttendeeMapper.INSTANCE.attendeeListToAttendeeRecordList(attendeeRepository.findAll());
     }
 
-    public AttendeeRecord create(CreateAttendeeRequest createAttendeeRequest) {
-        Attendee attendee = AttendeeMapper.INSTANCE.INSTANCE.createAttendeeRequestToAttendee(createAttendeeRequest);
+    public AttendeeRecord create(CreateAttendeeRequest request) {
+        Attendee attendee = AttendeeMapper.INSTANCE.INSTANCE.createAttendeeRequestToAttendee(request);
         attendeeRepository.save(attendee);
         return  AttendeeMapper.INSTANCE.attendeeToAttendeeRecord(attendee);
     }
@@ -32,5 +32,17 @@ public class AttendeeService {
     public AttendeeRecord findById(UUID id) {
         return AttendeeMapper.INSTANCE.attendeeToAttendeeRecord(attendeeRepository.findById(id)
                 .orElseThrow(() -> new AttendeeNotFoundException("Attendee not found")));
+    }
+
+    public AttendeeRecord update(AttendeeRecord request) {
+
+        Attendee attendee = attendeeRepository.findById(request.id())
+                .orElseThrow(() -> new AttendeeNotFoundException("Attendee not found"));
+        attendee.setName(request.name());
+        attendee.setEmail(request.email());
+
+        attendeeRepository.save(attendee);
+
+        return AttendeeMapper.INSTANCE.attendeeToAttendeeRecord(attendee);
     }
 }
