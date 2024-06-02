@@ -3,6 +3,7 @@ package soft.rodi38.eventorganizer.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -23,7 +24,8 @@ public class SpringSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // Desabilitando CSRF para simplificação
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/**", "/events/**", "/events", "/organizers/**", "organizers").permitAll()
+                        .requestMatchers("/**", "/events/**", "/events",
+                                "/organizers/**", "organizers", "/attendees/**", "/attendees").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> {}); // Configura HTTP Basic Authentication

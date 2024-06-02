@@ -21,8 +21,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @EqualsAndHashCode
-@Entity
 @Builder
+@Entity
 public class Attendee {
 
     @Id
