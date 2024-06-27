@@ -34,15 +34,24 @@ public class AttendeeService {
                 .orElseThrow(() -> new AttendeeNotFoundException("Attendee not found")));
     }
 
-    public AttendeeRecord update(AttendeeRecord request) {
+    public void update(AttendeeRecord request) {
 
-        Attendee attendee = attendeeRepository.findById(request.id())
-                .orElseThrow(() -> new AttendeeNotFoundException("Attendee not found"));
+        Attendee attendee = AttendeeMapper.INSTANCE.attendeeRecordToAttendee(findById(request.id()));
+
         attendee.setName(request.name());
         attendee.setEmail(request.email());
 
         attendeeRepository.save(attendee);
 
-        return AttendeeMapper.INSTANCE.attendeeToAttendeeRecord(attendee);
+    }
+
+    public void delete(UUID id){
+        if (attendeeRepository.existsById(id)){
+            attendeeRepository.deleteById(id);
+            return;
+        }
+
+        throw new AttendeeNotFoundException("Attendee not found with id: " + id);
+
     }
 }

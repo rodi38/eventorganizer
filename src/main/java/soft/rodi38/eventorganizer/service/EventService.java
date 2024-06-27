@@ -36,17 +36,23 @@ public class EventService {
                 .orElseThrow(() -> new EventNotFoundException("Event not found")));
     }
 
-    public EventRecord update(EventRecord request) {
-        Event event = eventRepository.findById(request.id())
-                .orElseThrow(() -> new EventNotFoundException("Event not found"));
+    public void update(EventRecord request) {
+        Event event = EventMapper.INSTANCE.eventRecordToEvent(findById(request.id()));
 
         event.setName(request.name());
         event.setLocation(request.location());
-        event.setStartDate(request.startDate());
-        event.setEndDate(request.endDate());
 
-        return EventMapper.INSTANCE.eventToEventRecord(event);
+        eventRepository.save(event);
     }
 
+    public void delete(UUID id) {
+        if (eventRepository.existsById(id)){
+            eventRepository.deleteById(id);
+            return;
+
+        }
+
+        throw new EventNotFoundException("Event not found with id: " + id);
+    }
 
 }

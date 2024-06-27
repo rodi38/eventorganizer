@@ -20,6 +20,8 @@ public interface OrganizerMapper {
 
     Organizer createOrganizerRequestToOrganizer(CreateOrganizerRequest createOrganizerRequest);
 
+    Organizer organizerRecordToOrganizer(OrganizerRecord organizerRecord);
+
 
     List<OrganizerRecord> organizeListToOrganizerRecordList(List<Organizer> organizerList);
 

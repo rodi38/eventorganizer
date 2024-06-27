@@ -34,4 +34,24 @@ public class OrganizerService {
         return OrganizerMapper.INSTANCE.organizerToOrganizerRecord(organizerRepository.findById(id)
                 .orElseThrow(() -> new OrganizerNotFoundException("Organizer not found")));
     }
+
+
+    public void update(OrganizerRecord request) {
+        Organizer organizer = OrganizerMapper.INSTANCE.organizerRecordToOrganizer(findById(request.id()));
+
+        organizer.setEmail(request.email());
+        organizer.setName(request.name());
+        organizerRepository.save(organizer);
+
+    }
+
+
+    public void delete(UUID id){
+        if (organizerRepository.existsById(id)) {
+            organizerRepository.deleteById(id);
+            return;
+        }
+        throw new OrganizerNotFoundException("Organizer not found with id: " + id);
+
+    }
 }

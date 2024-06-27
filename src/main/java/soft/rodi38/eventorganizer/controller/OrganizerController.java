@@ -38,4 +38,17 @@ public class OrganizerController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @PutMapping()
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody OrganizerRecord request) {
+        organizerService.update(request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable UUID id) {
+        organizerService.delete(id);
+    }
+
+
 }

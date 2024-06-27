@@ -21,6 +21,8 @@ public interface AttendeeMapper {
 
     Attendee createAttendeeRequestToAttendee(CreateAttendeeRequest createAttendeeRequest);
 
+    Attendee attendeeRecordToAttendee(AttendeeRecord attendeeRecord);
+
 
     List<AttendeeRecord> attendeeListToAttendeeRecordList(List<Attendee> attendees);
 
