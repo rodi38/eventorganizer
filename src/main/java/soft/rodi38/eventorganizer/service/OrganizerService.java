@@ -2,6 +2,7 @@ package soft.rodi38.eventorganizer.service;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import soft.rodi38.eventorganizer.exception.organizer.OrganizerNotFoundException;
 import soft.rodi38.eventorganizer.model.dto.OrganizerRecord;
@@ -19,12 +20,17 @@ public class OrganizerService {
 
     private OrganizerRepository organizerRepository;
 
+    private PasswordEncoder passwordEncoder;
+
+
     public List<OrganizerRecord> findAll() {
         return OrganizerMapper.INSTANCE.organizeListToOrganizerRecordList(organizerRepository.findAll());
     }
 
     public OrganizerRecord create(CreateOrganizerRequest createOrganizerRequest) {
+        String encodedPassword = passwordEncoder.encode(createOrganizerRequest.password());
         Organizer organizer = OrganizerMapper.INSTANCE.INSTANCE.createOrganizerRequestToOrganizer(createOrganizerRequest);
+        organizer.setPassword(encodedPassword);
         organizerRepository.save(organizer);
 
         return OrganizerMapper.INSTANCE.organizerToOrganizerRecord(organizer);

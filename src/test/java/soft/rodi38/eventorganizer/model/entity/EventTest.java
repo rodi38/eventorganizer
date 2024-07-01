@@ -28,8 +28,8 @@ public class EventTest {
 
         Event event = new Event(eventId, "Evento de tecnologia","Fortaleza",Instant.now(), startDate, endDate, new ArrayList<>(), null );
 //        Event event = Event.builder().id(eventId).name("Evento de tecnologia").startDate(startDate).endDate(endDate).attendees(new ArrayList<>()).organizer(null).build();
-        Attendee attendee = new Attendee(attendeeId, "Rodrigo","rodrigo@email.com", Instant.now(), List.of(event));
-        Organizer organizer = new Organizer(organizerId,"Empresario","empresario@email.com", Instant.now(), List.of(event) );
+        Attendee attendee = new Attendee(attendeeId, "Rodrigo","rodrigo@email.com", "1234", Instant.now(), List.of(event));
+        Organizer organizer = new Organizer(organizerId,"Empresario","empresario@email.com", "1234", Instant.now(), List.of(event) );
 
         event.getAttendees().add(attendee);
         event.setOrganizer(organizer);

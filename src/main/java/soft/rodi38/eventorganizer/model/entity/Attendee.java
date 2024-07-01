@@ -34,7 +34,10 @@ public class Attendee {
     private String name;
 
     @Email
+    @Column(unique = true)
     private String email;
+
+    private String password;
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)

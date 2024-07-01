@@ -25,9 +25,9 @@ public class OrganizerTest {
             LocalDateTime.of(2024,05, 5, 2, 02,4,5 ),
             ZoneOffset.of("-3"));
 
-    Attendee attendee = new Attendee(attendeeId, "Rodrigo", "rodrigo@email.com", Instant.now(), new ArrayList<>());
+    Attendee attendee = new Attendee(attendeeId, "Rodrigo", "rodrigo@email.com", "1234", Instant.now(), new ArrayList<>());
     Event event1 = new Event(eventId, "Evento de tecnologia", "Fortaleza", Instant.now() ,startDate,endDate, new ArrayList<>(), null);
-    Organizer organizer = new Organizer(organizerId,"Rodrigo","rodrigo@email.com", Instant.now(), new ArrayList<>());
+    Organizer organizer = new Organizer(organizerId,"Rodrigo","rodrigo@email.com", "1234", Instant.now(), new ArrayList<>());
 
 
     @Test

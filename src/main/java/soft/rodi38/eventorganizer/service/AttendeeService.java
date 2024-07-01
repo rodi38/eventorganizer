@@ -2,6 +2,7 @@ package soft.rodi38.eventorganizer.service;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import soft.rodi38.eventorganizer.exception.attendee.AttendeeNotFoundException;
 import soft.rodi38.eventorganizer.model.dto.AttendeeRecord;
@@ -19,12 +20,19 @@ public class AttendeeService {
 
     private AttendeeRepository attendeeRepository;
 
+    private PasswordEncoder passwordEncoder;
+
+
     public List<AttendeeRecord> findAll() {
         return AttendeeMapper.INSTANCE.attendeeListToAttendeeRecordList(attendeeRepository.findAll());
     }
 
     public AttendeeRecord create(CreateAttendeeRequest request) {
+        String encodedPassword = passwordEncoder.encode(request.password());
+
         Attendee attendee = AttendeeMapper.INSTANCE.INSTANCE.createAttendeeRequestToAttendee(request);
+        attendee.setPassword(encodedPassword);
+
         attendeeRepository.save(attendee);
         return  AttendeeMapper.INSTANCE.attendeeToAttendeeRecord(attendee);
     }

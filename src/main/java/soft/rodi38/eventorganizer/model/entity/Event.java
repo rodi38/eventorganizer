@@ -29,6 +29,8 @@ public class Event {
     @NotBlank
     private String location;
 
+
+
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
     private Instant createdAt;
@@ -37,16 +39,11 @@ public class Event {
 
     private OffsetDateTime endDate;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "event_attendees",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "attendee_id")
-    )
+    @ManyToMany()
     private List<Attendee> attendees;
 
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "organizer_id")
     private Organizer organizer;
 

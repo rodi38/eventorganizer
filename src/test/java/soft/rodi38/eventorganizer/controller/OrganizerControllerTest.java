@@ -48,7 +48,7 @@ public class OrganizerControllerTest {
         UUID organizerId = UUID.randomUUID();
         organizer = new Organizer();
         organizer.setId(organizerId);
-        request = new CreateOrganizerRequest("Rodrigo", "Rodrigo@email.com");
+        request = new CreateOrganizerRequest("Rodrigo", "Rodrigo@email.com", "1234");
 
         organizer.setName(request.name());
         organizer.setEmail(request.email());
