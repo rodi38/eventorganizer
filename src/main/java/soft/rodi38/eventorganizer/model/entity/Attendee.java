@@ -33,11 +33,19 @@ public class Attendee {
     @NotBlank
     private String name;
 
+    @NotBlank
+    private String username;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
     @Email
     @Column(unique = true)
     private String email;
 
     private String password;
+
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
