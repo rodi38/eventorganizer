@@ -13,4 +13,6 @@ public interface AttendeeRepository extends JpaRepository<Attendee, UUID> {
     Optional<Attendee> findByUsername(String username);
     Boolean existsByUsername(String username);
 
+    Boolean existsByEmail(String email);
+
 }
