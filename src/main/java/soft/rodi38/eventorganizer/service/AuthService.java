@@ -27,6 +27,11 @@ public class AuthService {
 
 
 
+    public void login(){
+
+    }
+
+
 
     public void register(SignupRequest signUpRequest) {
         if (organizerRepository.existsByUsername(signUpRequest.username()) || attendeeRepository.existsByUsername(signUpRequest.username())) {

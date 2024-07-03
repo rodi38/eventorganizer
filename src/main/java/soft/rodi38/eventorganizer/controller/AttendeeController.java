@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/attendees")
+@RequestMapping("/api/attendees")
 public class AttendeeController {
 
     private AttendeeService attendeeService;

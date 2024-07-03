@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/organizers")
+@RequestMapping("/api/organizers")
 public class OrganizerController {
 
     private OrganizerService organizerService;

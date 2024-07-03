@@ -30,9 +30,6 @@ public class AuthController {
 
     AuthenticationManager authenticationManager;
 
-    RoleRepository roleRepository;
-
-
     JwtUtils jwtUtils;
 
     AuthService authService;
