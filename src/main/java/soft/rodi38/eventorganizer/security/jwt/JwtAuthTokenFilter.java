@@ -7,12 +7,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import soft.rodi38.eventorganizer.service.details.UserDetailsService;
+import soft.rodi38.eventorganizer.service.details.UserDetailsServiceImpl;
 
 import java.io.IOException;
 
@@ -21,7 +20,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
     private JwtUtils jwtUtils;
 
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
 
     @Override
