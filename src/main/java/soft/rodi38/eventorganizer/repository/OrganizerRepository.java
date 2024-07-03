@@ -13,4 +13,6 @@ public interface OrganizerRepository extends JpaRepository<Organizer, UUID> {
 
     Optional<Organizer> findByUsername(String username);
 
+    
+
 }
