@@ -27,14 +27,12 @@ public class OrganizerService {
         return OrganizerMapper.INSTANCE.organizeListToOrganizerRecordList(organizerRepository.findAll());
     }
 
-    public OrganizerRecord create(CreateOrganizerRequest createOrganizerRequest) {
-        String encodedPassword = passwordEncoder.encode(createOrganizerRequest.password());
-        Organizer organizer = OrganizerMapper.INSTANCE.INSTANCE.createOrganizerRequestToOrganizer(createOrganizerRequest);
-        organizer.setPassword(encodedPassword);
-        organizerRepository.save(organizer);
-
-        return OrganizerMapper.INSTANCE.organizerToOrganizerRecord(organizer);
-    }
+//    public OrganizerRecord create(CreateOrganizerRequest createOrganizerRequest) {
+//        Organizer organizer = OrganizerMapper.INSTANCE.INSTANCE.createOrganizerRequestToOrganizer(createOrganizerRequest);
+//        organizerRepository.save(organizer);
+//
+//        return OrganizerMapper.INSTANCE.organizerToOrganizerRecord(organizer);
+//    }
 
     public OrganizerRecord findById(UUID id) {
         return OrganizerMapper.INSTANCE.organizerToOrganizerRecord(organizerRepository.findById(id)
@@ -58,6 +56,5 @@ public class OrganizerService {
             return;
         }
         throw new OrganizerNotFoundException("Organizer not found with id: " + id);
-
     }
 }

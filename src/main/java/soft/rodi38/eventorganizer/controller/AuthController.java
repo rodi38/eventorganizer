@@ -2,6 +2,7 @@ package soft.rodi38.eventorganizer.controller;
 
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +27,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
+@AllArgsConstructor
 public class AuthController {
 
     AuthenticationManager authenticationManager;
@@ -33,8 +35,6 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     AuthService authService;
-
-
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -48,7 +48,7 @@ public class AuthController {
 
         String role = userDetails.getAuthorities().stream().toList().get(0).getAuthority();
 
-        return ResponseEntity.ok(new JwtRecord(jwt,
+        return ResponseEntity.status(HttpStatus.OK).body(new JwtRecord(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),

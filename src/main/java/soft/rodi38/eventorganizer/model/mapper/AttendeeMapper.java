@@ -4,7 +4,7 @@ package soft.rodi38.eventorganizer.model.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import soft.rodi38.eventorganizer.model.dto.AttendeeRecord;
+import soft.rodi38.eventorganizer.model.dto.AttendeeResponse;
 import soft.rodi38.eventorganizer.model.dto.EventRecord;
 import soft.rodi38.eventorganizer.model.dto.request.CreateAttendeeRequest;
 import soft.rodi38.eventorganizer.model.entity.Attendee;
@@ -16,15 +16,15 @@ import java.util.List;
 public interface AttendeeMapper {
 
     AttendeeMapper INSTANCE = Mappers.getMapper(AttendeeMapper.class);
-    AttendeeRecord attendeeToAttendeeRecord(Attendee attendee);
+    AttendeeResponse attendeeToAttendeeResponse(Attendee attendee);
 
 
     Attendee createAttendeeRequestToAttendee(CreateAttendeeRequest createAttendeeRequest);
 
-    Attendee attendeeRecordToAttendee(AttendeeRecord attendeeRecord);
+    Attendee attendeeResponseToAttendee(AttendeeResponse attendeeRecord);
 
 
-    List<AttendeeRecord> attendeeListToAttendeeRecordList(List<Attendee> attendees);
+    List<AttendeeResponse> attendeeListToAttendeeResponseList(List<Attendee> attendees);
 
 
     @Mapping(target = "organizer", ignore = true)

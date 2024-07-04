@@ -25,9 +25,7 @@ import soft.rodi38.eventorganizer.service.details.UserDetailsServiceImpl;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@EnableWebMvc
 @EnableMethodSecurity
-@RequiredArgsConstructor
 @AllArgsConstructor
 public class SpringSecurityConfig {
 

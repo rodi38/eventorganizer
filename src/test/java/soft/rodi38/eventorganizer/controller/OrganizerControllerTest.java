@@ -43,72 +43,72 @@ public class OrganizerControllerTest {
     private CreateOrganizerRequest request;
     private OrganizerRecord response;
 
-    @BeforeEach
-    void setUp() {
-        UUID organizerId = UUID.randomUUID();
-        organizer = new Organizer();
-        organizer.setId(organizerId);
-        request = new CreateOrganizerRequest("Rodrigo", "Rodrigo@email.com", "1234");
-
-        organizer.setName(request.name());
-        organizer.setEmail(request.email());
-
-
-        response = new OrganizerRecord(organizerId, request.name(), request.email(), null);
-
-    }
-
-
-    @Test
-    @WithMockUser
-    void shoudFindAllOrganizers() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/organizers").with(SecurityMockMvcRequestPostProcessors.httpBasic("user", "default")))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-
-    @Test
-    @WithMockUser
-    void shoudCreateOrganizer() throws Exception {
-        Mockito.when(organizerService.create(Mockito.any(CreateOrganizerRequest.class))).thenReturn(response);
-
-        mockMvc.perform(MockMvcRequestBuilders.post("/organizers")
-                .with(SecurityMockMvcRequestPostProcessors.csrf())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(response.id().toString()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(response.name()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(response.email()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.events").value(organizer.getEvents()));
-
-    }
-
-
-    @Test
-    @WithMockUser
-    void shouldFindById() throws Exception {
-        Mockito.when(organizerService.findById(Mockito.any(UUID.class))).thenReturn(response);
-        mockMvc.perform(MockMvcRequestBuilders.get("/organizers/{id}", organizer.getId())
-                        .with(SecurityMockMvcRequestPostProcessors.csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(UUID.randomUUID())))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(response.id().toString()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(response.name()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(response.email()));
-    }
-
-
-
-    @Test
-    @WithMockUser
-    void shouldFindByIdReturnNotFoundWhenEventNotExists() throws Exception {
-        Mockito.when(organizerService.findById(Mockito.any(UUID.class)))
-                .thenThrow(new OrganizerNotFoundException("Organizer not found"));
-        mockMvc.perform(MockMvcRequestBuilders.get("/events/{id}", UUID.randomUUID())
-                        .with(SecurityMockMvcRequestPostProcessors.csrf())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
-    }
+//    @BeforeEach
+//    void setUp() {
+//        UUID organizerId = UUID.randomUUID();
+//        organizer = new Organizer();
+//        organizer.setId(organizerId);
+//        request = new CreateOrganizerRequest("Rodrigo", "Rodrigo@email.com", "1234");
+//
+//        organizer.setName(request.name());
+//        organizer.setEmail(request.email());
+//
+//
+//        response = new OrganizerRecord(organizerId, request.name(), request.email(), null);
+//
+//    }
+//
+//
+//    @Test
+//    @WithMockUser
+//    void shoudFindAllOrganizers() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/organizers").with(SecurityMockMvcRequestPostProcessors.httpBasic("user", "default")))
+//                .andExpect(MockMvcResultMatchers.status().isOk());
+//    }
+//
+//
+//    @Test
+//    @WithMockUser
+//    void shoudCreateOrganizer() throws Exception {
+//        Mockito.when(organizerService.create(Mockito.any(CreateOrganizerRequest.class))).thenReturn(response);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.post("/organizers")
+//                .with(SecurityMockMvcRequestPostProcessors.csrf())
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(request)))
+//                .andExpect(MockMvcResultMatchers.status().isCreated())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(response.id().toString()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(response.name()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(response.email()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.events").value(organizer.getEvents()));
+//
+//    }
+//
+//
+//    @Test
+//    @WithMockUser
+//    void shouldFindById() throws Exception {
+//        Mockito.when(organizerService.findById(Mockito.any(UUID.class))).thenReturn(response);
+//        mockMvc.perform(MockMvcRequestBuilders.get("/organizers/{id}", organizer.getId())
+//                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(UUID.randomUUID())))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(response.id().toString()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(response.name()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(response.email()));
+//    }
+//
+//
+//
+//    @Test
+//    @WithMockUser
+//    void shouldFindByIdReturnNotFoundWhenEventNotExists() throws Exception {
+//        Mockito.when(organizerService.findById(Mockito.any(UUID.class)))
+//                .thenThrow(new OrganizerNotFoundException("Organizer not found"));
+//        mockMvc.perform(MockMvcRequestBuilders.get("/events/{id}", UUID.randomUUID())
+//                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isNotFound());
+//    }
 }

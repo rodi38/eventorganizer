@@ -1,6 +1,8 @@
 package soft.rodi38.eventorganizer.service;
 
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import soft.rodi38.eventorganizer.exception.email.EmailNotFoundException;
@@ -16,6 +18,7 @@ import soft.rodi38.eventorganizer.repository.OrganizerRepository;
 import soft.rodi38.eventorganizer.repository.RoleRepository;
 
 @Service
+@AllArgsConstructor
 public class AuthService {
 
     OrganizerRepository organizerRepository;
