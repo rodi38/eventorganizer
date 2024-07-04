@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/organizers")
+@RequestMapping("/api/organizers")
 public class OrganizerController {
 
     private OrganizerService organizerService;
@@ -26,16 +26,29 @@ public class OrganizerController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping()
-    public ResponseEntity<OrganizerRecord> create(@RequestBody CreateOrganizerRequest request) {
-        OrganizerRecord response = organizerService.create(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
+//    @PostMapping()
+//    public ResponseEntity<OrganizerRecord> create(@RequestBody CreateOrganizerRequest request) {
+//        OrganizerRecord response = organizerService.create(request);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<OrganizerRecord> findById(@PathVariable UUID id) {
         OrganizerRecord response = organizerService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @PutMapping()
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody OrganizerRecord request) {
+        organizerService.update(request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable UUID id) {
+        organizerService.delete(id);
+    }
+
 
 }

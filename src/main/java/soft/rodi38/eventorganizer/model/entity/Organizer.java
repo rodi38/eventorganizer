@@ -11,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -31,8 +32,18 @@ public class Organizer {
     @NotBlank
     private String name;
 
+    private String username;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
     @Email
+    @Column(unique = true)
     private String email;
+
+    private String password;
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)

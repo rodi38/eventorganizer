@@ -12,3 +12,9 @@ spring:
     driver-class-name: org.postgresql.Driver
   application:
     name: eventorganizer
+
+
+rodi38:
+  app:
+    jwtSecret: ${JWT_SECRET}
+    jwtExpirationMs: ${JWT_MS}

@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import soft.rodi38.eventorganizer.model.dto.AttendeeRecord;
+import soft.rodi38.eventorganizer.model.dto.AttendeeResponse;
 import soft.rodi38.eventorganizer.model.dto.request.CreateAttendeeRequest;
 import soft.rodi38.eventorganizer.service.AttendeeService;
 
@@ -14,36 +14,42 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/attendees")
+@RequestMapping("/api/attendees")
 public class AttendeeController {
 
     private AttendeeService attendeeService;
 
 
     @GetMapping
-    public ResponseEntity<List<AttendeeRecord>> findAll() {
-        List<AttendeeRecord> response = attendeeService.findAll();
+    public ResponseEntity<List<AttendeeResponse>> findAll() {
+        List<AttendeeResponse> response = attendeeService.findAll();
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping
-    public ResponseEntity<AttendeeRecord> create(@RequestBody CreateAttendeeRequest request) {
-        AttendeeRecord response = attendeeService.create(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
+//    @PostMapping
+//    public ResponseEntity<AttendeeRecord> create(@RequestBody CreateAttendeeRequest request) {
+//        AttendeeRecord response = attendeeService.create(request);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+//    }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<AttendeeRecord> findById(@PathVariable UUID id) {
-        AttendeeRecord response = attendeeService.findById(id);
+    public ResponseEntity<AttendeeResponse> findById(@PathVariable UUID id) {
+        AttendeeResponse response = attendeeService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PutMapping()
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody AttendeeRecord request) {
+    public void update(@RequestBody AttendeeResponse request) {
         attendeeService.update(request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable UUID id){
+        attendeeService.delete(id);
     }
 
 

@@ -3,7 +3,7 @@ package soft.rodi38.eventorganizer.model.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import soft.rodi38.eventorganizer.model.dto.AttendeeRecord;
+import soft.rodi38.eventorganizer.model.dto.AttendeeResponse;
 import soft.rodi38.eventorganizer.model.dto.EventRecord;
 import soft.rodi38.eventorganizer.model.dto.OrganizerRecord;
 import soft.rodi38.eventorganizer.model.dto.request.CreateEventRequest;
@@ -32,7 +32,7 @@ public interface EventMapper {
 
     List<EventRecord> eventsToEventRecords(List<Event> events);
     @Mapping(target = "events", ignore = true) // Ignore mapping events to avoid circular reference
-    AttendeeRecord attendeeToAttendeeRecord(Attendee attendee);
+    AttendeeResponse attendeeToAttendeeResponse(Attendee attendee);
 
     @Mapping(target = "events", ignore = true) // Ignore mapping events to avoid circular reference
     OrganizerRecord organizerToOrganizerRecord(Organizer organizer);

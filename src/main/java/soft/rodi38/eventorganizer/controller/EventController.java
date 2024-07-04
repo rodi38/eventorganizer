@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/events")
+@RequestMapping("/api/events")
 @AllArgsConstructor
 public class EventController {
 
@@ -34,6 +34,18 @@ public class EventController {
     public ResponseEntity<EventRecord> findById(@PathVariable UUID id) {
         EventRecord response = eventService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PutMapping()
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody EventRecord request) {
+        eventService.update(request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable UUID id) {
+        eventService.delete(id);
     }
 
 }
