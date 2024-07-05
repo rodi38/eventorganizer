@@ -39,7 +39,7 @@ public class Event {
 
     private OffsetDateTime endDate;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Attendee> attendees;
 
 

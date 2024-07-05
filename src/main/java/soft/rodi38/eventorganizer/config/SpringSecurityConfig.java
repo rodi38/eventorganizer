@@ -1,11 +1,8 @@
 package soft.rodi38.eventorganizer.config;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -17,12 +14,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import soft.rodi38.eventorganizer.security.jwt.JwtAuthEntryPoint;
 import soft.rodi38.eventorganizer.security.jwt.JwtAuthTokenFilter;
 import soft.rodi38.eventorganizer.service.details.UserDetailsServiceImpl;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableMethodSecurity
@@ -54,27 +49,13 @@ public class SpringSecurityConfig {
     }
 
 
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http.csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/**", "/events/**", "/events",
-//                                "/organizers/**", "organizers", "/attendees/**", "/attendees").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .httpBasic(httpBasic -> {});
-//
-//        return http.build();
         http.csrf(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtUnauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
-                                .requestMatchers("/api/events/**").permitAll()
-                                .requestMatchers("/api/attendees/**").permitAll()
-                                .requestMatchers("/api/organizers/**").permitAll()
                                 .anyRequest().authenticated()
                 );
 
@@ -84,6 +65,7 @@ public class SpringSecurityConfig {
 
         return http.build();
     }
+
 
 
     @Bean

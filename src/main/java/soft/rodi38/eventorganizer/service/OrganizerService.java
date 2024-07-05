@@ -27,12 +27,6 @@ public class OrganizerService {
         return OrganizerMapper.INSTANCE.organizeListToOrganizerRecordList(organizerRepository.findAll());
     }
 
-//    public OrganizerRecord create(CreateOrganizerRequest createOrganizerRequest) {
-//        Organizer organizer = OrganizerMapper.INSTANCE.INSTANCE.createOrganizerRequestToOrganizer(createOrganizerRequest);
-//        organizerRepository.save(organizer);
-//
-//        return OrganizerMapper.INSTANCE.organizerToOrganizerRecord(organizer);
-//    }
 
     public OrganizerRecord findById(UUID id) {
         return OrganizerMapper.INSTANCE.organizerToOrganizerRecord(organizerRepository.findById(id)

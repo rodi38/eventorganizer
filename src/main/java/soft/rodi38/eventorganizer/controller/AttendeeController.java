@@ -27,12 +27,6 @@ public class AttendeeController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-//    @PostMapping
-//    public ResponseEntity<AttendeeRecord> create(@RequestBody CreateAttendeeRequest request) {
-//        AttendeeRecord response = attendeeService.create(request);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-//    }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<AttendeeResponse> findById(@PathVariable UUID id) {
