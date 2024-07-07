@@ -3,8 +3,8 @@ package soft.rodi38.eventorganizer.model.entity;
 public enum ERole {
 
 
-    USER,
-    ADMIN,
-    ORGANIZER,
-    ATTENDEE
+    ROLE_USER,
+    ROLE_ADMIN,
+    ROLE_ORGANIZER,
+    ROLE_ATTENDEE
 }

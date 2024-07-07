@@ -26,12 +26,6 @@ public class OrganizerController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-//    @PostMapping()
-//    public ResponseEntity<OrganizerRecord> create(@RequestBody CreateOrganizerRequest request) {
-//        OrganizerRecord response = organizerService.create(request);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-//    }
-
     @GetMapping("/{id}")
     public ResponseEntity<OrganizerRecord> findById(@PathVariable UUID id) {
         OrganizerRecord response = organizerService.findById(id);

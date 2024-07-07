@@ -26,13 +26,6 @@ public class AttendeeService {
         return AttendeeMapper.INSTANCE.attendeeListToAttendeeResponseList(attendeeRepository.findAll());
     }
 
-//    public AttendeeResponse create(CreateAttendeeRequest request) {
-//
-//        Attendee attendee = AttendeeMapper.INSTANCE.INSTANCE.createAttendeeRequestToAttendee(request);
-//
-//        attendeeRepository.save(attendee);
-//        return  AttendeeMapper.INSTANCE.attendeeToAttendeeResponse(attendee);
-//    }
 
     public AttendeeResponse findById(UUID id) {
         return AttendeeMapper.INSTANCE.attendeeToAttendeeResponse(attendeeRepository.findById(id)
