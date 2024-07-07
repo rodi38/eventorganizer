@@ -3,6 +3,7 @@ package soft.rodi38.eventorganizer.config;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import soft.rodi38.eventorganizer.model.entity.ERole;
 import soft.rodi38.eventorganizer.security.jwt.JwtAuthEntryPoint;
 import soft.rodi38.eventorganizer.security.jwt.JwtAuthTokenFilter;
 import soft.rodi38.eventorganizer.service.details.UserDetailsServiceImpl;
@@ -56,6 +58,8 @@ public class SpringSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/organizers").hasRole("ORGANIZER")
+                                .requestMatchers(HttpMethod.GET, "/api/attendees").hasRole("ATTENDEE")
                                 .anyRequest().authenticated()
                 );
 

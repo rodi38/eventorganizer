@@ -16,12 +16,12 @@ public class RoleInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (roleRepository.findByName(ERole.ORGANIZER).isEmpty()){
-            roleRepository.save(Role.builder().name(ERole.ORGANIZER).build());
+        if (roleRepository.findByName(ERole.ROLE_ORGANIZER).isEmpty()){
+            roleRepository.save(Role.builder().name(ERole.ROLE_ORGANIZER).build());
         }
 
-        if (roleRepository.findByName(ERole.ATTENDEE).isEmpty()) {
-            roleRepository.save(Role.builder().name(ERole.ATTENDEE).build());
+        if (roleRepository.findByName(ERole.ROLE_ATTENDEE).isEmpty()) {
+            roleRepository.save(Role.builder().name(ERole.ROLE_ATTENDEE).build());
         }
     }
 }

@@ -45,7 +45,7 @@ public class AuthService {
 
         Role role = findAndSendRole(signUpRequest.role());
 
-        if (role.getName().equals(ERole.ORGANIZER)) {
+        if (role.getName().equals(ERole.ROLE_ORGANIZER)) {
             Organizer organizer = Organizer.builder()
                     .name(signUpRequest.name())
                     .username(signUpRequest.username())
@@ -55,7 +55,7 @@ public class AuthService {
                     .build();
             organizerRepository.save(organizer);
         }
-        if (role.getName().equals(ERole.ATTENDEE)) {
+        if (role.getName().equals(ERole.ROLE_ATTENDEE)) {
             Attendee attendee = Attendee.builder()
                     .name(signUpRequest.name())
                     .username(signUpRequest.username())
@@ -70,9 +70,9 @@ public class AuthService {
 
     public Role findAndSendRole(String strRole) {
         return switch (strRole.toUpperCase()) {
-            case "ORGANIZER" -> roleRepository.findByName(ERole.ORGANIZER)
+            case "ORGANIZER" -> roleRepository.findByName(ERole.ROLE_ORGANIZER)
                     .orElseThrow(() -> new RoleNotFoundException("Role is not found."));
-            case "ATTENDEE" -> roleRepository.findByName(ERole.ATTENDEE)
+            case "ATTENDEE" -> roleRepository.findByName(ERole.ROLE_ATTENDEE)
                     .orElseThrow(() -> new RoleNotFoundException("Role is not found."));
             default -> throw new RoleNotFoundException("Role is not found.");
         };
