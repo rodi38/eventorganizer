@@ -2,7 +2,6 @@ package soft.rodi38.eventorganizer.service;
 
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import soft.rodi38.eventorganizer.exception.email.EmailNotFoundException;
@@ -10,7 +9,7 @@ import soft.rodi38.eventorganizer.exception.role.RoleNotFoundException;
 import soft.rodi38.eventorganizer.exception.username.UserNameNotFoundException;
 import soft.rodi38.eventorganizer.model.dto.request.SignupRequest;
 import soft.rodi38.eventorganizer.model.entity.Attendee;
-import soft.rodi38.eventorganizer.model.entity.ERole;
+import soft.rodi38.eventorganizer.model.enums.ERole;
 import soft.rodi38.eventorganizer.model.entity.Organizer;
 import soft.rodi38.eventorganizer.model.entity.Role;
 import soft.rodi38.eventorganizer.repository.AttendeeRepository;

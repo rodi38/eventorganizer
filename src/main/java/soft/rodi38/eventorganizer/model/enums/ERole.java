@@ -1,4 +1,4 @@
-package soft.rodi38.eventorganizer.model.entity;
+package soft.rodi38.eventorganizer.model.enums;
 
 public enum ERole {
 

@@ -2,6 +2,7 @@ package soft.rodi38.eventorganizer.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -22,22 +23,21 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, unique = true, nullable = false)
     private UUID id;
-
     @NotBlank
     private String name;
 
     @NotBlank
-    private String location;
+    private String address;
 
-
-
-    @CreationTimestamp
-    @Column(updatable = false, nullable = false)
-    private Instant createdAt;
+    @Size(min = 20)
+    private Integer maxQuantityAttendee;
 
     private OffsetDateTime startDate;
 
     private OffsetDateTime endDate;
+
+    @OneToMany
+    private List<Ticket> tickets;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Attendee> attendees;
@@ -47,5 +47,15 @@ public class Event {
     @JoinColumn(name = "organizer_id")
     private Organizer organizer;
 
+    @CreationTimestamp
+    @Column(updatable = false, nullable = false)
+    private Instant createdAt;
+
+    private OffsetDateTime updatedAt;
+
+    private OffsetDateTime deletedAt;
+
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
     
 }
