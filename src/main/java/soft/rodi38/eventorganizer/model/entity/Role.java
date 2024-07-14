@@ -3,6 +3,7 @@ package soft.rodi38.eventorganizer.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import soft.rodi38.eventorganizer.model.enums.ERole;
 
 import java.util.UUID;
 

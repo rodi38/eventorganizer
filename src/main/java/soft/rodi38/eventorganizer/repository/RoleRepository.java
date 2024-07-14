@@ -1,7 +1,7 @@
 package soft.rodi38.eventorganizer.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import soft.rodi38.eventorganizer.model.entity.ERole;
+import soft.rodi38.eventorganizer.model.enums.ERole;
 import soft.rodi38.eventorganizer.model.entity.Role;
 
 import java.util.Optional;

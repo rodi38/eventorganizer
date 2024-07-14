@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import soft.rodi38.eventorganizer.model.entity.ERole;
 import soft.rodi38.eventorganizer.security.jwt.JwtAuthEntryPoint;
 import soft.rodi38.eventorganizer.security.jwt.JwtAuthTokenFilter;
 import soft.rodi38.eventorganizer.service.details.UserDetailsServiceImpl;
@@ -58,8 +57,25 @@ public class SpringSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/events").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/events/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/events/{name}").permitAll()
+
+
                                 .requestMatchers(HttpMethod.GET, "/api/organizers").hasRole("ORGANIZER")
+                                .requestMatchers(HttpMethod.GET, "/api/organizers/{id}").hasRole("ORGANIZER")
                                 .requestMatchers(HttpMethod.GET, "/api/attendees").hasRole("ATTENDEE")
+                                .requestMatchers(HttpMethod.GET, "/api/attendees/{id}").hasRole("ATTENDEE")
+
+                                .requestMatchers(HttpMethod.PUT, "/api/organizers").hasRole("ORGANIZER")
+                                .requestMatchers(HttpMethod.PUT, "/api/attendees").hasRole("ATTENDEE")
+                                .requestMatchers(HttpMethod.PUT, "/api/events").hasAnyRole("ATTENDEE", "ORGANIZER")
+
+                                .requestMatchers(HttpMethod.DELETE, "/api/organizers/{id}").hasRole("ORGANIZER")
+                                .requestMatchers(HttpMethod.DELETE, "/api/attendees/{id}").hasRole("ATTENDEE")
+                                .requestMatchers(HttpMethod.DELETE, "/api/events/{id}").hasRole("ORGANIZER")
+
+
                                 .anyRequest().authenticated()
                 );
 

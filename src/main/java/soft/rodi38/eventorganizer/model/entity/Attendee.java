@@ -46,6 +46,9 @@ public class Attendee {
 
     private String password;
 
+    @OneToMany
+    private List<Ticket> tickets;
+
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
