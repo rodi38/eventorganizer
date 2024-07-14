@@ -2,10 +2,7 @@ package soft.rodi38.eventorganizer.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import soft.rodi38.eventorganizer.model.enums.DonationType;
 
@@ -20,6 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Ticket {
 
     @Id
@@ -30,6 +28,7 @@ public class Ticket {
     @NotBlank
     private String code;
 
+    @NotBlank
     private DonationType donationType;
 
     @ManyToOne
@@ -37,6 +36,9 @@ public class Ticket {
 
     @ManyToOne
     private Event event;
+
+    private boolean hasSold;
+
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)

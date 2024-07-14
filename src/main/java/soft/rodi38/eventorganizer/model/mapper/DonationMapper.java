@@ -2,9 +2,14 @@ package soft.rodi38.eventorganizer.model.mapper;
 
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+import soft.rodi38.eventorganizer.model.dto.AttendeeResponse;
+import soft.rodi38.eventorganizer.model.dto.OrganizerRecord;
 import soft.rodi38.eventorganizer.model.dto.request.DonationRequest;
+import soft.rodi38.eventorganizer.model.entity.Attendee;
 import soft.rodi38.eventorganizer.model.entity.Donation;
+import soft.rodi38.eventorganizer.model.entity.Organizer;
 
 @Mapper(componentModel = "spring")
 public interface DonationMapper {
@@ -13,5 +18,11 @@ public interface DonationMapper {
 
     Donation donationRequestToDonation(DonationRequest donationRequest);
 
+
+    @Mapping(target = "events", ignore = true) // Ignore mapping events to avoid circular reference
+    AttendeeResponse attendeeToAttendeeResponse(Attendee attendee);
+
+    @Mapping(target = "events", ignore = true) // Ignore mapping events to avoid circular reference
+    OrganizerRecord organizerToOrganizerRecord(Organizer organizer);
 
 }
