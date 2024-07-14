@@ -9,20 +9,30 @@ import soft.rodi38.eventorganizer.model.dto.OrganizerRecord;
 import soft.rodi38.eventorganizer.model.dto.request.DonationRequest;
 import soft.rodi38.eventorganizer.model.entity.Attendee;
 import soft.rodi38.eventorganizer.model.entity.Donation;
+import soft.rodi38.eventorganizer.model.entity.Event;
 import soft.rodi38.eventorganizer.model.entity.Organizer;
+
+import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface DonationMapper {
 
     DonationMapper INSTANCE = Mappers.getMapper(DonationMapper.class);
 
+
+    @Mapping(target = "attendee", source = "attendeeId")
+    @Mapping(target = "event", source = "eventId")
     Donation donationRequestToDonation(DonationRequest donationRequest);
 
+    @Mapping(target = "events", ignore = true) // Ignore mapping events to avoid circular reference
+    Attendee attendeeIdToOrganizer(UUID attendeeID);
+
+    @Mapping(target = "tickets", ignore = true)
+    Event eventIdToEvent(UUID eventId);
+
+
 
     @Mapping(target = "events", ignore = true) // Ignore mapping events to avoid circular reference
-    AttendeeResponse attendeeToAttendeeResponse(Attendee attendee);
-
-    @Mapping(target = "events", ignore = true) // Ignore mapping events to avoid circular reference
-    OrganizerRecord organizerToOrganizerRecord(Organizer organizer);
+    Organizer organizerIdToOrganizer(UUID organizerId);
 
 }

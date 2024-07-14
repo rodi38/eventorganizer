@@ -2,6 +2,8 @@ package soft.rodi38.eventorganizer.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import soft.rodi38.eventorganizer.model.enums.DonationType;
 
 import java.math.BigDecimal;
@@ -31,6 +33,11 @@ public class Donation {
     @ManyToOne
     private Event event;
 
+    @CreationTimestamp
+    @Column(updatable = false, nullable = false)
+    private OffsetDateTime createdAt;
+
+    @UpdateTimestamp
     private OffsetDateTime updatedAt;
 
     private OffsetDateTime deletedAt;

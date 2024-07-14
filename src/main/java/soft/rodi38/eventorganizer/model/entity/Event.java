@@ -5,9 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 
-import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -36,7 +36,7 @@ public class Event {
 
     private OffsetDateTime endDate;
 
-    @OneToMany
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -49,13 +49,15 @@ public class Event {
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
-    private Instant createdAt;
+    private OffsetDateTime createdAt;
 
+    @UpdateTimestamp
     private OffsetDateTime updatedAt;
 
     private OffsetDateTime deletedAt;
 
     @Column(name = "is_deleted")
     private boolean isDeleted;
-    
+
+
 }
