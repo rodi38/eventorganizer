@@ -27,7 +27,6 @@ public class Ticket {
     @NotBlank
     private String code;
 
-    @NotBlank
     private DonationType donationType;
 
     @ManyToOne

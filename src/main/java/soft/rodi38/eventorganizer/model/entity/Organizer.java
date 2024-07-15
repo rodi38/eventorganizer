@@ -27,6 +27,7 @@ public class Organizer {
     @NotBlank
     private String name;
 
+    @NotBlank
     private String username;
 
 
@@ -38,6 +39,7 @@ public class Organizer {
     @Column(unique = true)
     private String email;
 
+    @NotBlank
     private String password;
 
 

@@ -1,6 +1,7 @@
 package soft.rodi38.eventorganizer.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -29,8 +30,8 @@ public class Event {
     @NotBlank
     private String address;
 
-    @Size(min = 20)
-    private Integer maxQuantityAttendee;
+    @Min(value = 20, message = "The minimum of attendees is 20")
+    private int maxQuantityAttendee;
 
     private OffsetDateTime startDate;
 

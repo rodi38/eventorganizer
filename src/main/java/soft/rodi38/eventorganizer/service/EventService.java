@@ -3,6 +3,7 @@ package soft.rodi38.eventorganizer.service;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import soft.rodi38.eventorganizer.exception.event.EventNotFoundException;
 import soft.rodi38.eventorganizer.model.dto.EventRecord;
 import soft.rodi38.eventorganizer.model.dto.request.CreateEventRequest;
@@ -28,8 +29,9 @@ public class EventService {
         return EventMapper.INSTANCE.eventsToEventRecords(eventRepository.findAll());
     }
 
+    @Transactional
     public EventRecord create(CreateEventRequest request) {
-        Event event = eventRepository.save(EventMapper.INSTANCE.createEventReqToEvent(request));
+        Event event = EventMapper.INSTANCE.createEventReqToEvent(request);
         event.setTickets(generateTickets(event));
         Event response = eventRepository.save(event);
         return EventMapper.INSTANCE.eventToEventRecord(response);
