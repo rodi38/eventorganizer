@@ -57,6 +57,9 @@ public class SpringSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/donation").hasRole("ATTENDEE")
+                                .requestMatchers(HttpMethod.POST, "/api/events").hasRole("ORGANIZER")
+
                                 .requestMatchers(HttpMethod.GET, "/api/events").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/events/{id}").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/events/{name}").permitAll()
