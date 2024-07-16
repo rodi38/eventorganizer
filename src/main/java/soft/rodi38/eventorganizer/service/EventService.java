@@ -46,7 +46,7 @@ public class EventService {
         Event event = EventMapper.INSTANCE.eventRecordToEvent(findById(request.id()));
 
         event.setName(request.name());
-        event.setAddress(request.location());
+        event.setAddress(request.address());
 
         eventRepository.save(event);
     }

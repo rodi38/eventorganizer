@@ -31,10 +31,10 @@ public interface EventMapper {
 
 
     List<EventRecord> eventsToEventRecords(List<Event> events);
-    @Mapping(target = "events", ignore = true) // Ignore mapping events to avoid circular reference
+    @Mapping(target = "events", ignore = true)
     AttendeeResponse attendeeToAttendeeResponse(Attendee attendee);
 
-    @Mapping(target = "events", ignore = true) // Ignore mapping events to avoid circular reference
+    @Mapping(target = "events", ignore = true)
     OrganizerRecord organizerToOrganizerRecord(Organizer organizer);
 
 

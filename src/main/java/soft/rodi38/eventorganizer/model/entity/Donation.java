@@ -27,10 +27,10 @@ public class Donation {
 
     private BigDecimal value;
 
-    @ManyToOne
+    @ManyToOne()
     private Attendee attendee;
 
-    @ManyToOne
+    @ManyToOne()
     private Event event;
 
     @CreationTimestamp

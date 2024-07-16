@@ -24,15 +24,12 @@ public interface DonationMapper {
     @Mapping(target = "event", source = "eventId")
     Donation donationRequestToDonation(DonationRequest donationRequest);
 
-    @Mapping(target = "events", ignore = true) // Ignore mapping events to avoid circular reference
-    Attendee attendeeIdToOrganizer(UUID attendeeID);
+    @Mapping(target = "events", ignore = true)
+    Attendee attendeeIdToAttendee(UUID attendeeID);
 
     @Mapping(target = "tickets", ignore = true)
+    @Mapping(target = "attendees", ignore = true)
     Event eventIdToEvent(UUID eventId);
 
-
-
-    @Mapping(target = "events", ignore = true) // Ignore mapping events to avoid circular reference
-    Organizer organizerIdToOrganizer(UUID organizerId);
 
 }
