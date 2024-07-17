@@ -56,7 +56,7 @@ public class SpringSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtUnauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/auth/**").permitAll()
+                        auth.requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/donation").hasRole("ATTENDEE")
                                 .requestMatchers(HttpMethod.POST, "/api/events").hasRole("ORGANIZER")
 
