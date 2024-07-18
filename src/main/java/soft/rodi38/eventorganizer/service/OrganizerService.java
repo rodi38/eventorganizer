@@ -20,19 +20,14 @@ public class OrganizerService {
 
     private OrganizerRepository organizerRepository;
 
-    private PasswordEncoder passwordEncoder;
-
-
     public List<OrganizerRecord> findAll() {
         return OrganizerMapper.INSTANCE.organizeListToOrganizerRecordList(organizerRepository.findAll());
     }
-
 
     public OrganizerRecord findById(UUID id) {
         return OrganizerMapper.INSTANCE.organizerToOrganizerRecord(organizerRepository.findById(id)
                 .orElseThrow(() -> new OrganizerNotFoundException("Organizer not found")));
     }
-
 
     public void update(OrganizerRecord request) {
         Organizer organizer = OrganizerMapper.INSTANCE.organizerRecordToOrganizer(findById(request.id()));
@@ -43,8 +38,7 @@ public class OrganizerService {
 
     }
 
-
-    public void delete(UUID id){
+    public void delete(UUID id) {
         if (organizerRepository.existsById(id)) {
             organizerRepository.deleteById(id);
             return;

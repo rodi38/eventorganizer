@@ -24,7 +24,6 @@ public class EventService {
 
     @Autowired
     private final EventRepository eventRepository;
-
     public List<EventRecord> findAllEvents() {
         return EventMapper.INSTANCE.eventsToEventRecords(eventRepository.findAll());
     }
@@ -52,7 +51,7 @@ public class EventService {
     }
 
     public void delete(UUID id) {
-        if (eventRepository.existsById(id)){
+        if (eventRepository.existsById(id)) {
             eventRepository.deleteById(id);
             return;
 
@@ -61,13 +60,13 @@ public class EventService {
         throw new EventNotFoundException("Event not found with id: " + id);
     }
 
-    public String generateTicketCode(String eventName, OffsetDateTime startDate){
+    public String generateTicketCode(String eventName, OffsetDateTime startDate) {
         return eventName + startDate + AppUtils.generateRandomString();
     }
 
-    public List<Ticket> generateTickets(Event event){
+    public List<Ticket> generateTickets(Event event) {
         List<Ticket> tickets = new ArrayList<>();
-        for (int i = 0; i < event.getMaxQuantityAttendee(); i++ ) {
+        for (int i = 0; i < event.getMaxQuantityAttendee(); i++) {
             Ticket ticket = Ticket.builder()
                     .code(generateTicketCode(event.getName(), event.getStartDate()))
                     .event(event)

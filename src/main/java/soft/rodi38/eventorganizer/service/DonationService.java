@@ -31,7 +31,7 @@ public class DonationService {
     @Transactional
     public TicketResponse create(DonationRequest request) {
         Donation donation = DonationMapper.INSTANCE.donationRequestToDonation(request);
-        List<Ticket> tickets =  ticketRepository.findAllByEventIdAndHasSoldFalse(request.eventId());
+        List<Ticket> tickets = ticketRepository.findAllByEventIdAndHasSoldFalse(request.eventId());
         System.out.println(tickets.size());
         if (tickets.isEmpty()) {
             throw new IllegalStateException("No available tickets for this event!");

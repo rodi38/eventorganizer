@@ -30,34 +30,16 @@ import java.util.List;
 @AllArgsConstructor
 public class AuthController {
 
-    AuthenticationManager authenticationManager;
-
-    JwtUtils jwtUtils;
-
-    AuthService authService;
+    private AuthService authService;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password()));
+    public ResponseEntity<JwtRecord> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        JwtRecord response = authService.login(loginRequest);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
-        String role = userDetails.getAuthorities().stream().toList().get(0).getAuthority();
-
-        return ResponseEntity.status(HttpStatus.OK).body(new JwtRecord(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                role));
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-
-
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
+    public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
         authService.register(signupRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("User registered successfully!"));

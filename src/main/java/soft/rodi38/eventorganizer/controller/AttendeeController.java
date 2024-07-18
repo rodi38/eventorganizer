@@ -19,7 +19,6 @@ public class AttendeeController {
 
     private AttendeeService attendeeService;
 
-
     @GetMapping
     public ResponseEntity<List<AttendeeResponse>> findAll() {
         List<AttendeeResponse> response = attendeeService.findAll();

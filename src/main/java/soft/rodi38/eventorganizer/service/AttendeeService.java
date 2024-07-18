@@ -21,7 +21,6 @@ public class AttendeeService {
     private AttendeeRepository attendeeRepository;
 
 
-
     public List<AttendeeResponse> findAll() {
         return AttendeeMapper.INSTANCE.attendeeListToAttendeeResponseList(attendeeRepository.findAll());
     }
@@ -43,8 +42,8 @@ public class AttendeeService {
 
     }
 
-    public void delete(UUID id){
-        if (attendeeRepository.existsById(id)){
+    public void delete(UUID id) {
+        if (attendeeRepository.existsById(id)) {
             attendeeRepository.deleteById(id);
             return;
         }
